@@ -17,6 +17,8 @@ Route::prefix('admin')
   ->group(function() {
     Route::get('/dashboard', 'DashboardController@index')
       ->name('dashboard');
+
+    Route::resource('travel-package', 'TravelPackageController');
   });
 
 Route::get('/', 'HomeController@index')
