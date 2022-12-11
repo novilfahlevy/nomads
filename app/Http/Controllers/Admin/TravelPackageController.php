@@ -58,9 +58,13 @@ class TravelPackageController extends Controller
             $travel->price = $data['price'];
             $travel->save();
 
-            return redirect()->route('travel-package.index');
+            return redirect()
+                ->route('travel-package.index')
+                ->with('success', 'Travel berhasil ditambah');
         } catch (Exception $error) {
-            return redirect()->back();
+            return redirect()
+                ->back()
+                ->with('error', 'Travel gagal ditambah, telah terjadi kesalahan pada server');
         }
     }
 
@@ -114,9 +118,13 @@ class TravelPackageController extends Controller
             $travel->price = $data['price'];
             $travel->save();
 
-            return redirect()->route('travel-package.index');
+            return redirect()
+                ->route('travel-package.index')
+                ->with('success', 'Travel berhasil diedit');
         } catch (Exception $error) {
-            return redirect()->back();
+            return redirect()
+                ->back()
+                ->with('error', 'Travel gagal diedit, telah terjadi kesalahan pada server');
         }
     }
 
@@ -128,8 +136,16 @@ class TravelPackageController extends Controller
      */
     public function destroy($id)
     {
-        $travel = TravelPackage::find($id);
-        $travel->delete();
-        return redirect()->back();
+        try {
+            $travel = TravelPackage::find($id);
+            $travel->delete();
+            return redirect()
+                ->back()
+                ->with('success', 'Travel berhasil dihapus');
+        } catch (Exception $error) {
+            return redirect()
+                ->back()
+                ->with('error', 'Travel gagal dihapus, telah terjadi kesalahan pada server');
+        }
     }
 }

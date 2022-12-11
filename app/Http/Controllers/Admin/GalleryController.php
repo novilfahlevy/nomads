@@ -51,9 +51,13 @@ class GalleryController extends Controller
             $image->image = $data['image'];
             $image->save();
 
-            return redirect()->route('gallery.index');
+            return redirect()
+                ->route('gallery.index')
+                ->with('success', 'Galeri berhasil ditambah');
         } catch (Exception $error) {
-            return redirect()->back();
+            return redirect()
+                ->back()
+                ->with('error', 'Galeri gagal ditambah, telah terjadi kesalahan pada server');
         }
     }
 
@@ -99,9 +103,13 @@ class GalleryController extends Controller
             $image->image = $data['image'];
             $image->save();
 
-            return redirect()->route('gallery.index');
+            return redirect()
+                ->route('gallery.index')
+                ->with('success', 'Galeri berhasil diedit');
         } catch (Exception $error) {
-            return redirect()->back();
+            return redirect()
+                ->back()
+                ->with('error', 'Galeri gagal diedit, telah terjadi kesalahan pada server');
         }
     }
 
@@ -113,8 +121,16 @@ class GalleryController extends Controller
      */
     public function destroy($id)
     {
-        $gallery = Gallery::find($id);
-        $gallery->delete();
-        return redirect()->back();
+        try {
+            $gallery = Gallery::find($id);
+            $gallery->delete();
+            return redirect()
+                ->back()
+                ->with('success', 'Galeri berhasil dihapus');
+        } catch (Exception $error) {
+            return redirect()
+                ->back()
+                ->with('error', 'Galeri gagal dihapus, telah terjadi kesalahan pada server');
+        }
     }
 }

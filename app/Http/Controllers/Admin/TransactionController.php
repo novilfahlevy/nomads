@@ -81,9 +81,13 @@ class TransactionController extends Controller
             $transaction->transaction_status = $request->transaction_status;
             $transaction->save();
 
-            return redirect()->route('transaction.index');
+            return redirect()
+                ->route('transaction.index')
+                ->with('success', 'Transaksi berhasil diedit');
         } catch (Exception $error) {
-            return redirect()->back();
+            return redirect()
+                ->back()
+                ->with('error', 'Transaksi gagal diedit, telah terjadi kesalahan pada server');
         }
     }
 
@@ -95,8 +99,16 @@ class TransactionController extends Controller
      */
     public function destroy($id)
     {
-        $travel = Transaction::find($id);
-        $travel->delete();
-        return redirect()->back();
+        try {
+            $travel = Transaction::find($id);
+            $travel->delete();
+            return redirect()
+                ->back()
+                ->with('success', 'Transaksi berhasil dihapus');
+        } catch (Exception $error) {
+            return redirect()
+                ->back()
+                ->with('error', 'Transaksi gagal dihapus, telah terjadi kesalahan pada server');
+        }
     }
 }
