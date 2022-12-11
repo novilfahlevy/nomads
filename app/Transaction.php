@@ -15,6 +15,16 @@ class Transaction extends Model
 
     protected $hidden = [];
 
+    public function scopePending($query)
+    {
+      return $query->where('transaction_status', 'PENDING');
+    }
+
+    public function scopeSuccess($query)
+    {
+      return $query->where('transaction_status', 'SUCCESS');
+    }
+
     public function details()
     {
       return $this->hasMany(TransactionDetail::class, 'transaction_id', 'id');
