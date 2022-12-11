@@ -17,15 +17,15 @@
   </li>
 
   <!-- Nav Item - Paket Travel -->
-  <li class="nav-item">
+  <li class="nav-item {{ Request::routeIs('travel-package.index') ? 'active' : '' }}">
       <a class="nav-link" href="{{ route('travel-package.index') }}">
           <i class="fas fa-fw fa-hotel"></i>
           <span>Paket Travel</span></a>
   </li>
 
   <!-- Nav Item - Galeri Travel -->
-  <li class="nav-item">
-      <a class="nav-link" href="index.html">
+  <li class="nav-item {{ Request::routeIs('gallery.index') ? 'active' : '' }}">
+      <a class="nav-link" href="{{ route('gallery.index') }}">
           <i class="fas fa-fw fa-images"></i>
           <span>Galeri Travel</span></a>
   </li>
