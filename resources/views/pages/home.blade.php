@@ -15,7 +15,7 @@
     <br>
     moment you never see before
   </p>
-  <a href="#" class="btn btn-get-started px-4 mt-4">
+  <a href="#popular" class="btn btn-get-started px-4 mt-4">
     Get Started
   </a>
 </header>
@@ -44,7 +44,7 @@
   </div>
 
   <!-- Popular Destination -->
-  <section class="section-popular">
+  <section class="section-popular" id="popular">
     <div class="container mb-5">
       <div class="row justify-content-center">
         <div class="col-12 text-center">
@@ -62,42 +62,20 @@
   <section class="section-popular-content">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-sm-6 col-md-4 col-lg-3 mb-2 mb-lg-0">
-          <div class="card-travel text-center d-flex flex-column" style="background-image: url('frontend/images/bali.jpg');">
-            <h2 class="travel-country">INDONESIA</h2>
-            <h3 class="travel-location">DERATAN, BALI</h3>
-            <div class="mt-auto">
-              <a href="{{ route('detail') }}" class="btn px-4 text-white btn-travel-details">View Details</a>
+        @foreach ($travels as $travel)
+          <div class="col-sm-6 col-md-4 col-lg-3 mb-2 mb-lg-0">
+            <div
+              class="card-travel text-center d-flex flex-column"
+              style="background-image: url('{{ Storage::url($travel->thumbnail) }}');"
+            >
+              <h2 class="travel-country">{{ $travel->location }}</h2>
+              <h3 class="travel-location">{{ $travel->title }}</h3>
+              <div class="mt-auto">
+                <a href="{{ route('detail', $travel->slug) }}" class="btn px-4 text-white btn-travel-details">View Details</a>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3 mb-2 mb-lg-0">
-          <div class="card-travel text-center d-flex flex-column" style="background-image: url('frontend/images/malang.jpg');">
-            <h2 class="travel-country">INDONESIA</h2>
-            <h3 class="travel-location">BROMO, MALANG</h3>
-            <div class="mt-auto">
-              <a href="{{ route('detail') }}" class="btn px-4 text-white btn-travel-details">View Details</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3 mb-2 mb-lg-0">
-          <div class="card-travel text-center d-flex flex-column" style="background-image: url('frontend/images/penida.jpg');">
-            <h2 class="travel-country">INDONESIA</h2>
-            <h3 class="travel-location">NUSA, PENIDA</h3>
-            <div class="mt-auto">
-              <a href="{{ route('detail') }}" class="btn px-4 text-white btn-travel-details">View Details</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3 mb-2 mb-lg-0">
-          <div class="card-travel text-center d-flex flex-column" style="background-image: url('frontend/images/dubai.jpg');">
-            <h2 class="travel-country">MIDDLE EAST</h2>
-            <h3 class="travel-location">DUBAI</h3>
-            <div class="mt-auto">
-              <a href="{{ route('detail') }}" class="btn px-4 text-white btn-travel-details">View Details</a>
-            </div>
-          </div>
-        </div>
+        @endforeach
       </div>
     </div>
   </section>
@@ -180,7 +158,7 @@
         </div>
         <div class="col-12 d-flex justify-content-center mt-5">
           <a href="#" class="btn btn-help mr-3">I Need Help</a>
-          <a href="#" class="btn btn-get-started">Get Started</a>
+          <a href="{{ route('register') }}" class="btn btn-get-started">Get Started</a>
         </div>
       </div>
     </div>

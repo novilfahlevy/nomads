@@ -13,7 +13,7 @@
     </a>
   </div>
 
-  @include('includes.admin.alert')
+  @include('includes.alert')
 
   <div class="card">
     <div class="card-body">

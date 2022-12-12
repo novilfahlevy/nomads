@@ -14,7 +14,24 @@ class TravelPackage extends Model
         'foods', 'departure_date', 'duration', 'type', 'price'
     ];
 
+    protected $dates = ['departure_date'];
+
     protected $hidden = [];
+
+    public function scopeWithGalleries($query)
+    {
+        return $query->with(['galleries']);
+    }
+
+    public function scopeSlug($query, $slug)
+    {
+        return $query->where('slug', $slug);
+    }
+
+    public function getThumbnailAttribute()
+    {
+        return $this->galleries->first()->image;
+    }
 
     public function galleries()
     {

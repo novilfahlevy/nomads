@@ -19,8 +19,9 @@
       </div>
       <div class="col-12 col-lg-8 px-lg-0 mb-3 mb-lg-0">
         <div class="card card-members">
+          @include('includes.alert')
           <h1 class="card-members-title mb-1">Who is Going?</h1>
-          <p class="card-members-location">Trip to Ubud, Bali, Indonesia</p>
+          <p class="card-members-location">Trip to {{ $item->travelPackage->title }}, {{ $item->travelPackage->location }}</p>
           <table class="table table-responsive-sm text-center">
             <tr>
               <th class="align-middle">Picture</th>
@@ -30,57 +31,71 @@
               <th class="align-middle">Passport</th>
               <th class="align-middle"></th>
             </tr>
-            <tr>
-              <td class="align-middle">
-                <img src="{{ url('frontend/images/anggaphoto.jpg') }}" class="member-avatar" alt="Angga Rizky">
-              </td>
-              <td class="align-middle">Angga Rizky</td>
-              <td class="align-middle">CN</td>
-              <td class="align-middle">N/A</td>
-              <td class="align-middle">Active</td>
-              <td class="align-middle">
-                <img src="{{ url('frontend/images/ic_remove.jpg') }}" class="btn-remove-member" alt="Remove Angga Rizky">
-              </td>
-            </tr>
-            <tr>
-              <td class="align-middle">
-                <img src="{{ url('frontend/images/anggaphoto.jpg') }}" class="member-avatar" alt="Angga Rizky">
-              </td>
-              <td class="align-middle">Galih Pratama</td>
-              <td class="align-middle">SG</td>
-              <td class="align-middle">30 Days</td>
-              <td class="align-middle">Active</td>
-              <td class="align-middle">
-                <img src="{{ url('frontend/images/ic_remove.jpg') }}" class="btn-remove-member" alt="Remove Angga Rizky">
-              </td>
-            </tr>
+            @forelse ($item->details as $detail)
+              <tr>
+                <td class="align-middle">
+                  <img
+                    src="https://ui-avatars.com/api/?name={{ $detail->username }}"
+                    class="member-avatar"
+                    alt="{{ $detail->username }}"
+                  >
+                </td>
+                <td class="align-middle">{{ $detail->username }}</td>
+                <td class="align-middle">{{ $detail->nationality }}</td>
+                <td class="align-middle">{{ $detail->is_visa ? '30 Days' : 'N/A' }}</td>
+                <td class="align-middle">{{ $detail->is_passport_active }}</td>
+                <td class="align-middle">
+                  @if ($item->details->count() > 1)
+                    <a href="{{ route('checkout-remove', $detail->id) }}">
+                      <img src="{{ url('frontend/images/ic_remove.jpg') }}" class="btn-remove-member">
+                    </a>
+                  @endif
+                </td>
+              </tr>
+            @empty
+              <tr>
+                <td class="text-center" colspan="6">No visitor</td>
+              </tr>
+            @endforelse
           </table>
           <div class="add-member">
             <h2 class="add-member-title">Add Member</h2>
-            <form action="" class="form-inline">
-              <label for="inputUsername" class="sr-only">Name</label>
+            <form action="{{ route('checkout-create', $item->id) }}" method="POST" class="form-inline">
+              @csrf
+              <label for="username" class="sr-only">Name</label>
               <input
                 type="text"
                 class="form-control mb-2 mr-sm-2"
-                id="inputUsername"
-                name="name"
+                id="username"
+                name="username"
                 placeholder="Username"
               >
-              <label for="inputVisa" class="sr-only">VISA</label>
+              <label for="nationality" class="sr-only">Nationality</label>
+              <input
+                type="text"
+                class="form-control mb-2 mr-sm-2"
+                id="nationality"
+                name="nationality"
+                style="width: 50px;"
+                placeholder="Nationality"
+              >
+              <label for="is_visa" class="sr-only">VISA</label>
               <select
                 class="form-control mb-2 mr-sm-2"
-                id="inputVisa"
-                name="visa"
+                id="is_visa"
+                name="is_visa"
                 placeholder="VISA"
               >
-                <option value="visa">VISA</option>
+                <option value="" selected disabled>VISA</option>
+                <option value="1">30 Days</option>
+                <option value="0">N/A</option>
               </select>
-              <label for="inputDOEPassport" class="sr-only">DOE Passport</label>
+              <label for="doe_passport" class="sr-only">DOE Passport</label>
               <div class="input-group mb-2 mr-sm-2">
                 <input
                   class="form-control datepicker"
-                  id="inputDOEPassport"
-                  name="DOEPassport"
+                  id="doe_passport"
+                  name="doe_passport"
                   placeholder="DOE Passport"
                 >
               </div>
@@ -101,24 +116,24 @@
           <table class="table table-borderless table-responsive-sm">
             <tr>
               <td class="p-0 pb-2">Members</td>
-              <td class="text-right p-0 pb-2">2 people</td>
+              <td class="text-right p-0 pb-2">{{ $item->details->count() }} person</td>
             </tr>
             <tr>
               <td class="p-0 pb-2">Additional VISA</td>
-              <td class="text-right p-0 pb-2">$ 190,00</td>
+              <td class="text-right p-0 pb-2">$ {{ $item->additional_visa }},00</td>
             </tr>
             <tr>
               <td class="p-0 pb-2">Trip Price</td>
-              <td class="text-right p-0 pb-2">$ 80.00 / person</td>
+              <td class="text-right p-0 pb-2">$ {{ $item->travelPackage->price }}.00 / person</td>
             </tr>
             <tr>
               <td class="p-0 pb-2">Sub Total</td>
-              <td class="text-right p-0 pb-2">$ 280,00</td>
+              <td class="text-right p-0 pb-2">$ {{ $item->transaction_total }},00</td>
             </tr>
             <tr>
               <td class="p-0 pb-2">Total (+Unique Code)</td>
               <td class="text-right p-0">
-                <span class="total-nominal">$ 279,</span><span class="total-precision">33</span>
+                <span class="total-nominal">$ {{ $item->transaction_total }},</span><span class="total-precision">{{ mt_rand(0, 99) }}</span>
               </td>
             </tr>
           </table>
@@ -145,9 +160,9 @@
               </div>
             </div>
           </div>
-          <a href="{{ route('checkout-success') }}" class="btn btn-made-payment">I Have Made Payment</a>
+          <a href="{{ route('checkout-success', $item->id) }}" class="btn btn-made-payment">I Have Made Payment</a>
         </div>
-        <a href="{{ route('detail') }}" class="btn btn-cancel-booking mx-auto mt-3 d-block">
+        <a href="{{ route('detail', $item->travelPackage->slug) }}" class="btn btn-cancel-booking mx-auto mt-3 d-block">
           Cancel Booking
         </a>
       </div>
@@ -166,6 +181,7 @@
 <script>
   $(document).ready(function() {
     $('.datepicker').datepicker({
+      format: 'yyyy-mm-dd',
       uiLibrary: 'bootstrap4',
       icons: {
         rightIcon: '<img src="{{ url("frontend/images/ic_doe.jpg") }}" />'

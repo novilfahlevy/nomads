@@ -3,7 +3,7 @@
 @section('content')
 <!-- Begin Page Content -->
 <div class="container-fluid">
-  @include('includes.admin.alert')
+  @include('includes.alert')
   
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">

@@ -152,7 +152,7 @@ main {
 .card-members {
   background-color: #FFFFFF;
   border: 1px solid #E3E3E3;
-  border-radius: 11px 11px 0 0;
+  border-radius: 11px;
   padding: 30px;
   padding-bottom: 0;
 
@@ -198,6 +198,16 @@ main {
         color: #B1B1B1;
         font-weight: lighter;
       }
+    }
+  }
+
+  .form-join {
+    margin-left: -30px;
+    margin-right: -30px;
+
+    .btn-join {
+      margin-left: 0;
+      margin-right: 0;
     }
   }
 
