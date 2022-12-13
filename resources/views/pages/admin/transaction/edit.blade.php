@@ -7,7 +7,7 @@
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Edit Transaksi {{ $item->user->name }}</h1>
-    <a href="{{ route('travel-package.index') }}" class="btn btn-secondary btn-sm shadow-sm">
+    <a href="{{ route('transaction.index') }}" class="btn btn-secondary btn-sm shadow-sm">
       <i class="fas fa-arrow-left fa-sm text-white-50"></i>
       Kembali
     </a>

@@ -23,14 +23,20 @@
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" class="form-control" name="name" value="{{ old('name', $user->name) }}">
+          @error('name')
+            <p class="text-danger small mt-1">{{ $message }}</p>
+          @enderror
         </div>
         <div class="form-group">
           <label for="email">Email</label>
           <input type="text" class="form-control" name="email" value="{{ old('email', $user->email) }}">
+          @error('email')
+            <p class="text-danger small mt-1">{{ $message }}</p>
+          @enderror
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <div class="input-group mb-3">
+          <div class="input-group">
             <input type="password" class="form-control" name="password" id="password">
             <div class="input-group-append">
               <span class="input-group-text" id="password-toggle">
@@ -38,6 +44,9 @@
               </span>
             </div>
           </div>
+          @error('password')
+            <p class="text-danger small mt-1">{{ $message }}</p>
+          @enderror
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
       </form>

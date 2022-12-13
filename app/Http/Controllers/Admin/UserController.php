@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\User\CreateRequest;
+use App\Http\Requests\Admin\User\UpdateRequest;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -15,9 +17,14 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+        if ($request->roles) {
+            $roles = $request->roles;
+            $users = User::whereIn('roles', $roles)->get();
+        } else {
+            $users = User::all();
+        }
         return view('pages.admin.user.index', compact('users'));
     }
 
@@ -37,7 +44,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
         try {
             $data = $request->all();
@@ -89,7 +96,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
         try {
             $data = $request->all();

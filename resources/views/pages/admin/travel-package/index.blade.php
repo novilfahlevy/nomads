@@ -32,7 +32,7 @@
           <tbody>
             @forelse ($items as $item)
             <tr>
-              <td>{{ $item->id }}</td>
+              <td>{{ $loop->index + 1 }}</td>
               <td>{{ $item->title }}</td>
               <td>{{ $item->location }}</td>
               <td>{{ $item->type }}</td>

@@ -27,10 +27,16 @@
             <option value="{{ $travel->id }}">{{ $travel->title }}</option>
             @endforeach
           </select>
+          @error('title')
+            <p class="text-danger small mt-1">{{ $message }}</p>
+          @enderror
         </div>
         <div class="form-group">
           <label for="image">Gambar</label>
           <input type="file" class="form-control" name="image" id="image" required>
+          @error('image')
+            <p class="text-danger small mt-1">{{ $message }}</p>
+          @enderror
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
       </form>

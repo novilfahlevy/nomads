@@ -50,6 +50,9 @@
                                                 placeholder="Enter Email Address..."
 												value="{{ old('email') }}"
 											>
+                                            @error('email')
+                                                <p class="text-danger small ml-3 mt-1">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <input
@@ -59,6 +62,9 @@
 												name="password"
 												placeholder="Password"
 											>
+                                            @error('password')
+                                                <p class="text-danger small ml-3 mt-1">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">

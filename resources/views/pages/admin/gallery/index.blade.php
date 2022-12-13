@@ -30,7 +30,7 @@
           <tbody>
             @forelse ($items as $item)
             <tr>
-              <td>{{ $item->id }}</td>
+              <td>{{ $loop->index + 1 }}</td>
               <td>{{ $item->travelPackage->title }}</td>
               <td>
                 <img src="{{ Storage::url($item->image) }}" class="img-thumbnail" style="width: 150px;">
