@@ -72,6 +72,7 @@
     </div>
 
     @include('includes.admin.script')
+    @stack('append-script')
 
 </body>
 

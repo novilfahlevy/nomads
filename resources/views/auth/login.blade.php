@@ -41,7 +41,9 @@
 			<div class="col-12 col-lg-5 right-side">
 				<div class="card card-login mx-auto m-lg-0">
 					<div class="card-header bg-white border-0 text-center">
-						<img src="{{ url('frontend/images/logo_nomads.jpg') }}" alt="NMADS">
+						<a href="{{ route('home') }}">
+							<img src="{{ url('frontend/images/logo_nomads.jpg') }}" alt="NMADS">
+						</a>
 					</div>
 					<div class="card-body">
 						<form method="POST" action="{{ route('login') }}">
@@ -96,13 +98,20 @@
 									{{ __('Sign In') }}
 								</button>
 							</div>
+
 							@if (Route::has('password.request'))
-								<div class="form-group text-center mb-0">
+								<div class="form-group text-center mb-1">
 									<a class="text-secondary" href="{{ route('password.request') }}">
 											{{ __('Forgot Your Password?') }}
 									</a>
 								</div>
 							@endif
+
+							<div class="form-group text-center mb-0">
+								<a class="text-secondary" href="{{ route('register') }}">
+										{{ __('Does not have an account? Sign in now') }}
+								</a>
+							</div>
 						</form>
 					</div>
 				</div>

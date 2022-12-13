@@ -13,14 +13,21 @@
 
 Route::prefix('admin')
   ->namespace('Admin')
-  ->middleware(['auth', 'admin'])
   ->group(function() {
-    Route::get('/dashboard', 'DashboardController@index')
-      ->name('dashboard');
+    Route::middleware(['guest'])->group(function() {
+      Route::get('/login', 'Auth\\LoginController@index')->name('login-admin');
+      Route::post('/login', 'Auth\\LoginController@process')->name('login-admin-process');
+    });
 
-    Route::resource('travel-package', 'TravelPackageController');
-    Route::resource('gallery', 'GalleryController');
-    Route::resource('transaction', 'TransactionController');
+    Route::middleware(['auth', 'admin'])->group(function() {
+      Route::get('/dashboard', 'DashboardController@index')
+        ->name('dashboard');
+  
+      Route::resource('travel-package', 'TravelPackageController');
+      Route::resource('gallery', 'GalleryController');
+      Route::resource('transaction', 'TransactionController');
+      Route::resource('user', 'UserController');
+    });
   });
 
 Route::get('/', 'HomeController@index')

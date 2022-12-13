@@ -4,14 +4,14 @@ body {
 }
 
 .section-background .row {
-  min-height: 100vh;
+  min-height: 120vh;
 }
 .section-background .row .gray-background {
   background-color: #E4E6EB;
 }
 
 .section-main {
-  margin-top: -90vh;
+  margin-top: -110vh;
 }
 .section-main .left-side h1 {
   font-family: "Playfair Display", sans-serif;

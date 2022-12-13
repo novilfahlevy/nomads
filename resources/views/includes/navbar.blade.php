@@ -37,7 +37,7 @@
           class="btn btn-login my-2 my-sm-0 px-4"
           onclick="event.preventDefault(); location.href = '{{ route('login') }}';"
         >
-          Masuk
+          Sign In
         </button>
       </form>
 
@@ -48,7 +48,7 @@
           class="btn btn-login btn-navbar-right my-2 my-sm-0 px-4"
           onclick="event.preventDefault(); location.href = '{{ route('login') }}';"
         >
-          Masuk
+          Sign In
         </button>
       </form>
       @endguest
@@ -61,7 +61,7 @@
           type="submit"
           class="btn btn-login my-2 my-sm-0 px-4"
         >
-          Logout
+          Sign Out
         </button>
       </form>
 
@@ -72,7 +72,7 @@
           type="submit"
           class="btn btn-login btn-navbar-right my-2 my-sm-0 px-4"
         >
-          Logout
+          Sign Out
         </button>
       </form>
       @endauth
